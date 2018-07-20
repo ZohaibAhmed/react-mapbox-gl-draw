@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import MapboxDraw from '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw';
 
 export default class DrawControl extends React.Component {
-  static contextTypes = {
-    map: PropTypes.object.isRequired
-  };
 
   static defaultProps = {
     onDrawActionable: () => {},
@@ -63,9 +60,9 @@ export default class DrawControl extends React.Component {
       onDrawSelectionChange,
       onDrawUncombine,
       onDrawUpdate,
-      position
+      position,
+      map
     } = this.props;
-    const { map } = this.context;
 
     this.draw = new MapboxDraw({
       ...this.props,
@@ -89,7 +86,7 @@ export default class DrawControl extends React.Component {
   }
 
   componentWillUnmount () {
-    const { map } = this.context;
+    const { map } = this.props;
     if (!map || !map.getStyle()) {
       return;
     }
